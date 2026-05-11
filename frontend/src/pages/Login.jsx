@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 function Login() {
-    const navigate = useNavigate()
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -14,14 +14,15 @@ function Login() {
         body: JSON.stringify({email, password}),
         headers: { "Content-Type": "application/json" },
       });
-      console.log(response);
-      localStorage.setItem("role",response.user.role)
+      const data = await response.json()
+      localStorage.setItem("token",data.token)
+      localStorage.setItem("role",data.user.role)
       
-    //   if(response.user.role == "admin"){
-    //      navigate("/dashboard");
-    //   }else{
-    //     navigate("/dashboard");
-    //   }
+      if(response.user.role == "admin"){
+         <Navigate to="/dashboard"/>
+      }else{
+        <Navigate to="/dashboard" />;
+      }
      
     } catch (e) {
       setError("Login invalido");
