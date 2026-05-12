@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
-
+const navigate = useNavigate()
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -18,14 +18,15 @@ function Login() {
       localStorage.setItem("token",data.token)
       localStorage.setItem("role",data.user.role)
       
-      if(response.user.role == "admin"){
-         <Navigate to="/dashboard"/>
+      if(data.user.role == "admin"){
+         navigate("/dashboard")
       }else{
-        <Navigate to="/dashboard" />;
+        navigate("/reception")
       }
      
     } catch (e) {
       setError("Login invalido");
+      console.log(e);
     }
   }
   return (
