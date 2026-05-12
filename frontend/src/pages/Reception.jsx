@@ -35,14 +35,17 @@ function Reception() {
         placeholder="Pesquisar"
         className="w-full p-10"
       />
-      <div>
+      <div className="flex justify-center w-screen">
         {guests.map((g) => {
           return (
             <Card
               key={g.id}
+              id={g.id}
               name={g.name}
               email={g.email}
               table_number={g.table_number}
+              check_in={g.check_in}
+              onCheckIn={list}
             />
           );
         })}
